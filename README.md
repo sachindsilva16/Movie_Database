@@ -110,6 +110,7 @@ insert into moviecast values('ACT007','MOV_003','Astronaut');
 insert into moviecast values('ACT009','MOV_010','Villain');
 insert into moviecast values('ACT002','MOV_009','Actress');
 insert into moviecast values('ACT008','MOV_002','SuperMan');
+insert into moviecast values('ACT005','MOV_002','Villain');
 
 insert into rating values('MOV_001',5);
 insert into rating values('MOV_002',3);
@@ -127,6 +128,17 @@ insert into rating values('MOV_010',1);
 select m.Movie_title
 from movies as m,director as d
 where d.Director_ID=m.Director_ID and d.Director_Name='Sanith Shet';
+
+--2.Find the movie's name where one or more actors acted in 2 or more movies
+
+select Movie_title 
+from movies
+where Movie_ID in (select Movie_ID 
+from moviecast as m,actor as a
+where a.Actor_ID=m.Movie_ID)
+group by Movie_ID
+having count(Movie_ID) > 1;
+
 
 
 
